@@ -12,35 +12,37 @@ public class MainApp {
 
         Scanner in = new Scanner(new FileReader("students.txt"));
         
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<student> list = new ArrayList<student>();
 
-        while(in.hasNextLine()){
+        while(in.hasNext()){
 
             lastname = in.nextLine();
             firstname = in.nextLine();
             course = in.nextLine();
             
             for(int i = 0; i < 5; i++)
-                grades[i] = in.nextInt();
-
-            if(in.hasNextLine())
-                in.nextLine();
-                
+            grades[i] = in.nextInt();
+            
             stud = new student(lastname, firstname, course, grades);
+            list.add(stud);
+            
+            if(in.hasNextLine())
+            in.nextLine();
+            
             stud.hasFailingGrade();
-
-            if(stud.hasFailingGrade() == false)
-                fail++;
+            
+            if(stud.hasFailingGrade() == true)
+            fail++;
             
             stud.showDetails();
-
-            list.add(stud.toListDetails());
-
-            for(int index = 0; index < 5; index++)
-                list.add(stud.toListGrades(index));
         }
+
+        for(student ii : list){
+            System.out.println(ii.studDetails());
+            System.out.println(Arrays.toString(ii.studGrades()) + "\n");
+        }
+
+        System.out.println();
         System.out.print(fail + " Student/s have failed subjects.");
-        // for(String i : list)
-        // System.out.println(i);
     }
 }
